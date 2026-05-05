@@ -1,2 +1,2 @@
-# banco-de-dados-DS
-todas as lições de BD do 2 ano 2026
+# banco-de-dados-2-2DS
+portfólio de BD II do 2ano de 2026.
