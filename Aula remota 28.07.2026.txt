@@ -1,0 +1,118 @@
+Aula remota: 28/07/2026
+
+O que é uma FUNCTION no MySQL?
+
+Uma FUNCTION (função) no MySQL é um bloco de código armazenado no banco de dados que executa uma tarefa específica e sempre retorna um único valor. Ela pode receber parâmetros, realizar cálculos, manipular textos, datas ou números e devolver o resultado para quem a chamou.
+
+As funções são utilizadas para evitar a repetição de código, tornando as consultas mais organizadas e fáceis de manter.
+
+Características das FUNCTIONS
+Sempre retornam um valor.
+Podem receber nenhum, um ou vários parâmetros.
+São armazenadas no banco de dados.
+Podem ser utilizadas em comandos SELECT, WHERE, ORDER BY, INSERT, UPDATE, entre outros.
+Facilitam a reutilização de código.
+Sintaxe básica
+DELIMITER //
+
+CREATE FUNCTION nome_funcao(parametro TIPO)
+RETURNS TIPO
+DETERMINISTIC
+BEGIN
+    -- código da função
+    RETURN valor;
+END //
+
+DELIMITER ;
+Explicando a sintaxe
+CREATE FUNCTION: cria uma nova função.
+RETURNS: define o tipo de dado que será retornado.
+DETERMINISTIC: indica que, para os mesmos parâmetros, a função sempre retornará o mesmo resultado.
+BEGIN...END: delimita o bloco de instruções.
+RETURN: devolve o resultado da função.
+Exemplo 1: Dobrar um número
+DELIMITER //
+
+CREATE FUNCTION Dobro(numero INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    RETURN numero * 2;
+END //
+
+DELIMITER ;
+
+Uso:
+
+SELECT Dobro(8);
+
+Resultado:
+
+16
+Exemplo 2: Calcular idade
+DELIMITER //
+
+CREATE FUNCTION CalcularIdade(anoNascimento INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    RETURN YEAR(CURDATE()) - anoNascimento;
+END //
+
+DELIMITER ;
+
+Uso:
+
+SELECT CalcularIdade(2008);
+
+Resultado (considerando o ano de 2026):
+
+18
+Exemplo 3: Converter texto para maiúsculas
+DELIMITER //
+
+CREATE FUNCTION NomeMaiusculo(nome VARCHAR(100))
+RETURNS VARCHAR(100)
+DETERMINISTIC
+BEGIN
+    RETURN UPPER(nome);
+END //
+
+DELIMITER ;
+
+Uso:
+
+SELECT NomeMaiusculo('Pedro');
+
+Resultado:
+
+PEDRO
+Vantagens das FUNCTIONS
+Reutilização de código.
+Redução de erros por repetição.
+Consultas SQL mais limpas.
+Facilidade de manutenção.
+Centralização da lógica de processamento.
+Limitações
+Devem retornar apenas um valor.
+Não podem retornar tabelas inteiras.
+Não são indicadas para operações muito complexas que modificam diversos dados.
+Em algumas situações podem afetar o desempenho se forem chamadas muitas vezes em grandes consultas.
+Diferença entre FUNCTION e PROCEDURE
+FUNCTION	PROCEDURE
+Sempre retorna um valor	Pode ou não retornar valores
+Pode ser usada dentro de um SELECT	Não pode ser usada diretamente em um SELECT
+Geralmente realiza cálculos ou transformações	Executa processos completos, podendo inserir, atualizar ou excluir dados
+Usa RETURN	Pode usar parâmetros OUT ou INOUT
+Quando utilizar uma FUNCTION?
+
+Uma FUNCTION é recomendada quando é necessário:
+
+Realizar cálculos matemáticos.
+Manipular textos.
+Trabalhar com datas e horários.
+Converter valores.
+Padronizar regras de negócio que serão usadas diversas vezes.
+Conclusão
+
+As FUNCTIONS no MySQL são recursos importantes para criar códigos mais organizados, reutilizáveis e fáceis de manter. Elas permitem encapsular cálculos e regras de negócio em uma única função, que pode ser utilizada em diferentes consultas SQL. Embora possuam limitações, são muito úteis para simplificar operações frequentes e aumentar a produtividade no desenvolvimento de bancos de dados.
